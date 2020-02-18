@@ -493,3 +493,167 @@ transform: skew(-45deg); x轴倾斜
 ```
 
 ![x轴倾斜](./css3/x轴倾斜.gif)
+
+## 过渡
+
+```html
+<div class="yuanjiao"></div>
+<style>
+    .yuanjiao{
+        width: 200px;
+        height: 200px;
+        background: plum;
+        transition-property: background; /**参与过渡**/
+        transition-duration: 2s;/**过渡时间**/
+    }
+    .yuanjiao:hover{
+        background: rebeccapurple;
+        border-radius: 50%;
+    }  
+</style>
+```
+
+```
+transition-property: all; //默认是all 可以自定义
+```
+
+![过渡1](./css3/过渡1.gif)
+
+#### 运动速度
+
+```
+transition-timing-function: linear;
+```
+
+| 值                            | 描述                                                         |
+| :---------------------------- | :----------------------------------------------------------- |
+| linear                        | 规定以相同速度开始至结束的过渡效果（等于 cubic-bezier(0,0,1,1)）。 |
+| ease                          | 规定慢速开始，然后变快，然后慢速结束的过渡效果（cubic-bezier(0.25,0.1,0.25,1)）。 |
+| ease-in                       | 规定以慢速开始的过渡效果（等于 cubic-bezier(0.42,0,1,1)）。  |
+| ease-out                      | 规定以慢速结束的过渡效果（等于 cubic-bezier(0,0,0.58,1)）。  |
+| ease-in-out                   | 规定以慢速开始和结束的过渡效果（等于 cubic-bezier(0.42,0,0.58,1)）。 |
+| cubic-bezier(*n*,*n*,*n*,*n*) | 在 cubic-bezier 函数中定义自己的值。可能的值是 0 至 1 之间的数值。 |
+
+#### 不是平滑运动
+
+```html
+<style>
+ul{
+            display: flex;
+            flex-direction: row;
+            position: relative;
+        }
+        ul li{
+            height: 300px;
+            width: 200px;
+            border: 1px solid #ffffff;
+        }
+        ul::after{
+            content: "start";
+            height: 50px;
+            width: 200px;
+            background: orange;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition-duration: 1s;
+            transition-timing-function: steps(4, start); /**start**/
+        }
+        ul:hover::after{
+            transform: translateX(800px);
+        }
+        ul:hover::before{
+            transform: translateX(800px);
+        }
+        ul::before{
+            transition-timing-function: steps(4, end);/**end**/
+            content: "end";
+            height: 50px;
+            width: 200px;
+            background: pink;
+            position: absolute;
+            transition-duration: 1s;
+            left: 0;
+            bottom: 0;
+        }
+  </style>
+  <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+```
+
+![不需要平滑](./css3/不需要平滑.gif)
+
+#### 延迟动画 
+
+```
+transition-delay: 1s; // 延迟一秒在执行
+```
+
+#### 过渡组合
+
+```
+
+transition:all linear 2s 1s;
+transition:所有动作都执行 线性效果 执行2秒 延迟2秒;
+```
+
+## 针动画
+
+```css
+div{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation-name: hd;
+    background: blue;
+    animation-duration: 2s;
+}
+@keyframes hd {
+    0%{
+        background: rebeccapurple;
+    }
+    100%{
+        background: red;
+    }
+}
+```
+
+#### 控制动画播放次数
+
+```
+animation-iteration-count: n|infinite;  //填写次数 infinite无数次数
+```
+
+
+
+#### 动画速度
+
+```
+animation-timing-function: linear;
+```
+
+| 值                            | 描述                                                         |
+| :---------------------------- | :----------------------------------------------------------- |
+| linear                        | 规定以相同速度开始至结束的过渡效果（等于 cubic-bezier(0,0,1,1)）。 |
+| ease                          | 开始慢，然后快，慢下来，结束时非常慢（cubic-bezier(0.25,0.1,0.25,1)） |
+| ease-in                       | 开始慢，结束快（等于 cubic-bezier(0.42,0,1,1)）              |
+| ease-out                      | 开始快，结束慢（等于 cubic-bezier(0,0,0.58,1)）              |
+| ease-in-out                   | 中间快，两边慢（等于 cubic-bezier(0.42,0,0.58,1)）           |
+| cubic-bezier(*n*,*n*,*n*,*n*) | 在 cubic-bezier 函数中定义自己的值                           |
+
+#### 动画方向
+
+使用 `animation-direction` 控制动画运行的方向。
+
+| 选项              | 说明                         |
+| ----------------- | ---------------------------- |
+| normal            | 从0%到100%运行动画           |
+| reverse           | 从100%到0%运行动画           |
+| alternate         | 先从0%到100%，然后从100%到0% |
+| alternate-reverse | 先从100%到0%，然后从0%到100% |
